@@ -94,7 +94,7 @@ def make_sitemap_graph(df, layers=graph_depth, limit=limit, size=size, output_fo
 
     # Initialize graph
     f = graphviz.Digraph('sitemap', filename='sitemap_graph_%d_layer' % layers, format='%s' % output_format)
-    f.body.extend(['rankdir=LR', 'size="%s"' % size])
+    f.body.extend(['rankdir="LR"', 'size="%s"' % size])
 
 
     def add_branch(f, names, vals, limit, connect_to=''):
