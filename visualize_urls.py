@@ -228,6 +228,8 @@ def apply_style(f, style, title=''):
 
     return f
 
+def colour_subtree(f, link):
+    pass
 
 def main():
 
@@ -245,6 +247,11 @@ def main():
 
     f.render(cleanup=True)
     print('Exported graph to sitemap_graph_%d_layer.%s' % (graph_depth, output_format))
+
+    with f.subgraph(name='child', node_attr={'shape': 'box'}) as c:
+        c.edge('foo', 'bar')
+    
+    c.render(cleanup=True)
 
 
 if __name__ == '__main__':
