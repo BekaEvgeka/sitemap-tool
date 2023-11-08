@@ -201,7 +201,7 @@ def apply_style(f, style, title=''):
         },
         'nodes': {
             'style': 'filled',
-            'color': 'black',
+            'color': 'red',
             'fillcolor': '#dbdddd',
             'fontname': 'Helvetica',
             'fontsize': '14',
@@ -243,7 +243,7 @@ def main():
     print('Building %d layer deep sitemap graph' % graph_depth)
     f = make_sitemap_graph(sitemap_layers, layers=graph_depth,
                             limit=limit, size=size, output_format=output_format, skip=skip)
-    f = apply_style(f, style=style, title=title)
+    f = apply_style(f, style='light', title=title)
 
     f.render(cleanup=True)
     print('Exported graph to sitemap_graph_%d_layer.%s' % (graph_depth, output_format))
