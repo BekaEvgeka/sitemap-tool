@@ -62,7 +62,6 @@ def make_sitemap_graph(df, layers=graph_depth, limit=limit, size=size, output_fo
 
 
     def add_branch(f, names, vals, limit, connect_to=''):
-        ''' Adds a set of nodes and edges to nodes on the previous layer. '''
 
         # Get the currently existing node names
         node_names = [item.split('"')[1] for item in f.body if 'label' in item]
