@@ -1,24 +1,5 @@
-'''
-Visualize a list of URLs by site path.
 
-This script reads in the sitemap_layers.csv file created by the
-categorize_urls.py script and builds a graph visualization using Graphviz.
-
-Graph depth can be specified by executing a call like this in the
-terminal:
-
-    python visualize_urls.py --depth 4 --limit 10 --title "My Sitemap" --style "dark" --size "40"
-
-The same result can be achieved by setting the variables manually at the head
-of this file and running the script with:
-
-    python visualize_urls.py
-
-'''
 from __future__ import print_function
-
-
-# Set global variables
 
 graph_depth = 3  # Number of layers deep to plot categorization
 limit = 50       # Maximum number of nodes for a branch
@@ -27,6 +8,7 @@ style = 'light'  # Graph style, can be "light" or "dark"
 size = '8,5'     # Size of rendered graph
 output_format = 'pdf'   # Format of rendered image - pdf,png,tiff
 skip = ''        # List of branches to restrict from expanding
+search = ''
 
 # Import external library dependencies
 
@@ -66,27 +48,7 @@ search = args.search
 # Main script functions
 
 def make_sitemap_graph(df, layers=graph_depth, limit=limit, size=size, output_format=output_format, skip=skip):
-    ''' Make a sitemap graph up to a specified layer depth.
-
-    sitemap_layers : DataFrame
-        The dataframe created by the peel_layers function
-        containing sitemap information.
-
-    layers : int
-        Maximum depth to plot.
-
-    limit : int
-        The maximum number node edge connections. Good to set this
-        low for visualizing deep into site maps.
     
-    output_format : string
-        The type of file you want to save in PDF, PNG, TIFF, JPG
-
-    skip : list
-        List of branches that you do not want to expand.
-    '''
-
-
     # Check to make sure we are not trying to plot too many layers
     if layers > len(df) - 1:
         layers = len(df)-1
@@ -165,19 +127,7 @@ def make_sitemap_graph(df, layers=graph_depth, limit=limit, size=size, output_fo
 
 
 def apply_style(f, style, title=''):
-    ''' Apply the style and add a title if desired. More styling options are
-    documented here: http://www.graphviz.org/doc/info/attrs.html#d:style
-
-    f : graphviz.dot.Digraph
-        The graph object as created by graphviz.
-
-    style : str
-        Available styles: 'light', 'dark'
-
-    title : str
-        Optional title placed at the bottom of the graph.
-    '''
-
+    
     dark_style = {
         'graph': {
             'label': title,
@@ -239,9 +189,6 @@ def apply_style(f, style, title=''):
 
     return f
 
-def colour_subtree(f, link):
-    pass
-
 def main():
 
     # Read in categorized data
@@ -258,12 +205,6 @@ def main():
 
     f.render(cleanup=True)
     print('Exported graph to sitemap_graph_%d_layer.%s' % (graph_depth, output_format))
-
-    with f.subgraph(name='child', node_attr={'shape': 'box'}) as c:
-        c.edge('foo', 'bar')
-    
-    c.render(cleanup=True)
-
 
 if __name__ == '__main__':
     main()

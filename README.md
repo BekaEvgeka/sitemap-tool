@@ -1,3 +1,3 @@
 # kursach_ads
-Found some scripts that would be useful for my term project.
-Visualization doesnt work for some reason, so probably have to redo it myself.
+My Algorithms and Data Structures term project.
+It takes an XML site map, transforms it into a list of URLs then categorizes it in a CSV and finally visualizes the tree
