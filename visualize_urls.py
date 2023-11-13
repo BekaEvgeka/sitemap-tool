@@ -48,6 +48,7 @@ parser.add_argument('--output-format', type=str, default=output_format,
                     help='Format of the graph you want to save. Allowed formats are jpg, png, pdf or tif')
 parser.add_argument('--skip', type=str, default=skip,
         help="List of branches that you do not want to expand. Comma separated: e.g. --skip 'news,events,datasets'")
+parser.add_argument('--search', type=str, default='no_search')
 args = parser.parse_args()
 
 
@@ -60,6 +61,7 @@ style = args.style
 size = args.size
 output_format = args.output_format
 skip = args.skip.split(',')
+search = args.search
 
 # Main script functions
 
@@ -107,8 +109,17 @@ def make_sitemap_graph(df, layers=graph_depth, limit=limit, size=size, output_fo
         if connect_to:
             if connect_to in node_names:
                 for name, val in list(zip(names, vals))[:limit]:
-                    f.node(name='%s-%s' % (connect_to, name), label=name)
-                    f.edge(connect_to, '%s-%s' % (connect_to, name), label='{:,}'.format(val))
+                    if name in search:
+                        f.attr('node', shape='rectangle', fillcolor='red')
+                        f.node(name='%s-%s' % (connect_to, name), label=name)
+                        f.edge(connect_to, '%s-%s' % (connect_to, name), label='{:,}'.format(val))
+                        f.graph_attr.update()
+                    else:
+                        f.attr('node', shape='oval', fillcolor='white')
+                        f.node(name='%s-%s' % (connect_to, name), label=name)
+                        f.edge(connect_to, '%s-%s' % (connect_to, name), label='{:,}'.format(val))
+                        f.graph_attr.update()
+
 
 
     f.attr('node', shape='rectangle') # Plot nodes as rectangles
@@ -201,7 +212,7 @@ def apply_style(f, style, title=''):
         },
         'nodes': {
             'style': 'filled',
-            'color': 'red',
+            'color': 'black',
             'fillcolor': '#dbdddd',
             'fontname': 'Helvetica',
             'fontsize': '14',
