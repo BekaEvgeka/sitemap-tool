@@ -1,23 +1,5 @@
-'''
-Categorize a list of URLs by site path.
 
-The file containing the URLs should exist in the working directory and be
-named sitemap_urls.dat. It should contain one URL per line.
-
-Categorization depth can be specified by executing a call like this in the
-terminal (where we set the granularity depth level to 5):
-
-    python categorize_urls.py --depth 5
-
-The same result can be achieved by setting the categorization_depth variable
-manually at the head of this file and running the script with:
-
-    python categorize_urls.py
-
-'''
 from __future__ import print_function
-
-
 # Set global variables
 
 categorization_depth = 4
@@ -43,17 +25,6 @@ categorization_depth = args.depth
 
 
 def peel_layers(urls, layers=3):
-    ''' Builds a dataframe containing all unique page identifiers up
-    to a specified depth and counts the number of sub-pages for each.
-    Prints results to a CSV file.
-
-    urls : list
-        List of page URLs.
-
-    layers : int
-        Depth of automated URL search. Large values for this parameter
-        may cause long runtimes depending on the number of URLs.
-    '''
 
     # Store results in a dataframe
     sitemap_layers = pd.DataFrame()

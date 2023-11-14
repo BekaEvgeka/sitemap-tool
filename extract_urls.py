@@ -1,25 +1,4 @@
-'''
-Extract the URLs from an XML sitemap.
 
-Specify the sitemap index file URL (an XML page containing links to other
-XML files) by executing a call like this in the terminal:
-
-    python extract_urls.py --url "site.com/sitemap-index.xml"
-
-If the URL points directly to the sitemap then add the not_index argument:
-
-    python extract_urls.py --url "site.com/sitemap.xml" --not_index
-
-If the XML sitemap files are in gzip format, the script should be run like this:
-
-    python extract_urls.py --url "site.com/sitemap-index.xml" --gzip
-
-The same results can be achieved by editing the variables at the head of this
-file and running the script with:
-
-    python extract_urls.py
-
-'''
 from __future__ import print_function
 
 
