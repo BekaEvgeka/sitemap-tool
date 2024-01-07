@@ -80,16 +80,13 @@ def make_sitemap_graph(df, layers=graph_depth, limit=limit, size=size, output_fo
                         f.node(name='%s-%s' % (connect_to, name), label=name)
                         f.edge(connect_to, '%s-%s' % (connect_to, name), label='{:,}'.format(val))
                         f.graph_attr.update()
-
-
-
+                      
     f.attr('node', shape='rectangle') # Plot nodes as rectangles
 
     # Add the first layer of nodes
     for name, counts in df.groupby(['0'])['counts'].sum().reset_index()\
                           .sort_values(['counts'], ascending=False).values:
         f.node(name=name, label='{} ({:,})'.format(name, counts))
-
     if layers == 0:
         return f
 
@@ -203,6 +200,7 @@ def main():
     f = apply_style(f, style='light', title=title)
 
     f.render(cleanup=True)
+
     print('Exported graph to sitemap_graph_%d_layer.%s' % (graph_depth, output_format))
 
 if __name__ == '__main__':
